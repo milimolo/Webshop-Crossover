@@ -14,7 +14,7 @@ namespace WebShop.Core.ApplicationService
         //Create //POST
         Shoe CreateShoe (Shoe shoe);
         //Read //GET
-        List<Shoe> GetAllShoes ();
+        IEnumerable<Shoe> GetAllShoes ();
         Shoe FindShoesById(int id);
         int Count();
         //Update //PUT
