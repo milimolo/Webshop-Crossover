@@ -13,11 +13,8 @@ namespace Webshop.Infrastructure.Data
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.Entity<Customer>()
-            //    .HasMany(c => c.cartList)
-            //    .WithOne
-        }
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Shoe> Shoes { get; set; }
     }
 }
