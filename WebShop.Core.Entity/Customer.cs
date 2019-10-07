@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebShop.Core.Entity
 {
-    class Customer
+    public class Customer
     {
         public int id { get; set; }
         public string firstName { get; set; }
