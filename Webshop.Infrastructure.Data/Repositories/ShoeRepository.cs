@@ -31,7 +31,7 @@ namespace Webshop.Infrastructure.Data.Repositories
                 .FirstOrDefault(p=>p.id == id);
         }
 
-        public List<Shoe> ReadAllShoes()
+        public IEnumerable<Shoe> ReadAllShoes()
         {
             return _ctx.Shoes.ToList();
         }

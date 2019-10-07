@@ -29,7 +29,7 @@ namespace WebShop.Core.ApplicationService.Impl
             return _shoeRepository.CreateShoe(shoe);
         }
 
-        public List<Shoe> GetAllShoes()
+        public IEnumerable<Shoe> GetAllShoes()
         {
             return _shoeRepository.ReadAllShoes();
         }

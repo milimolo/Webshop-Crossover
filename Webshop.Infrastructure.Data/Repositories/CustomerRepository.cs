@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using WebShop.Core.DomainService;
 using WebShop.Core.Entity;
 
@@ -8,29 +10,39 @@ namespace Webshop.Infrastructure.Data.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
+        private readonly WebshopAppContext _ctx; 
         public Customer CreateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            var custSaved = _ctx.Customers .Add(customer).Entity;
+            _ctx .SaveChanges();
+
+            return custSaved;
+            
         }
 
         public Customer DeleteCustomer(int id)
         {
-            throw new NotImplementedException();
+            var custRemoved = _ctx.Remove(new Customer {id = id}).Entity;
+            _ctx.SaveChanges();
+            return custRemoved;
         }
 
         public Customer ReadCustomerById(int id)
         {
-            throw new NotImplementedException();
+            return _ctx.Customers  
+                .FirstOrDefault(p=>p.id == id);
         }
 
         public IEnumerable<Customer> ReadCustomers()
         {
-            throw new NotImplementedException();
+            return  _ctx.Customers.ToList();
         }
 
         public Customer UpdateCustomer(Customer CustomerToUpdate)
         {
-            throw new NotImplementedException();
+            _ctx.Attach(CustomerToUpdate).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return CustomerToUpdate;
         }
     }
 }
