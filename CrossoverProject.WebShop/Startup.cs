@@ -22,20 +22,33 @@ namespace CrossoverProject.WebShop
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IShoeRepository, Webshop.Infrastructure.Data.Repositories.ShoeRepository>();
-            //Laver en database ved navn ShoeApp.db
-            services.AddDbContext<WebshopAppContext>(
-                opt => opt.UseSqlite("Data Source=ShoeApp.db"));
+            if (Environment.IsDevelopment())
+            {
+                //Laver en database ved navn ShoeApp.db, når den ikke er i development
+                services.AddDbContext<WebshopAppContext>(
+                    opt => opt.UseSqlite("Data Source=ShoeApp.db"));
+            }
+            else
+            {
+                //Azure SQL database:
+                services.AddDbContext<WebshopAppContext>(
+                    opt => opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+            }
+            
 
             services.AddScoped<IShoeRepository, ShoeRepository>();
             services.AddScoped<IShoeService, ShoeService>();
@@ -46,22 +59,22 @@ namespace CrossoverProject.WebShop
                 //options.SerializerSettings.MaxDepth = 2;
             });
 
+            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
+                context.Database.EnsureCreated();
+                DBInitializer.Seed(context);
+            }
             if (env.IsDevelopment())
             {
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
-                    context.Database.EnsureDeleted();
-                    context.Database.EnsureCreated();
-                    DBInitializer.Seed(context);
-                }
-
                 app.UseDeveloperExceptionPage();
             }
             else
