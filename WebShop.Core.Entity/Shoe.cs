@@ -7,6 +7,7 @@ namespace WebShop.Core.Entity
     public class Shoe
     {
         public int id { get; set; }
+        public double  price { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public int size { get; set; }
@@ -16,3 +17,4 @@ namespace WebShop.Core.Entity
         public DateTime date { get; set; }
     }
 }
+
