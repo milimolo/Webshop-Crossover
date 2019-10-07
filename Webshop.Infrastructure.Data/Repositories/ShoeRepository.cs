@@ -11,6 +11,12 @@ namespace Webshop.Infrastructure.Data.Repositories
     public class ShoeRepository: IShoeRepository
     {
         private readonly WebshopAppContext _ctx; 
+
+        public ShoeRepository(WebshopAppContext context)
+        {
+            _ctx = context;
+        }
+
         public Shoe CreateShoe(Shoe shoe)
         {
             var ShoeSaved = _ctx.Shoes.Add(shoe).Entity;
@@ -27,8 +33,7 @@ namespace Webshop.Infrastructure.Data.Repositories
 
         public List<Shoe> ReadAllShoes()
         {
-            return  _ctx.Shoes.ToList();
-            
+            return _ctx.Shoes.ToList();
         }
 
 

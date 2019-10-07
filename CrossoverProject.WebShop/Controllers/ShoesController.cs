@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebShop.Core.ApplicationService;
+using WebShop.Core.Entity;
 
 namespace CrossoverProject.WebShop.Controllers
 {
@@ -11,11 +13,17 @@ namespace CrossoverProject.WebShop.Controllers
     [ApiController]
     public class ShoesController : ControllerBase
     {
+        private readonly IShoeService _shoeService;
+        public ShoesController(IShoeService shoeService)
+        {
+            _shoeService = shoeService;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Shoe>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _shoeService.GetAllShoes();
         }
 
         // GET api/values/5
