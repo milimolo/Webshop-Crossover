@@ -12,6 +12,7 @@ namespace WebShop.Core.DomainService
         Shoe CreateShoe(Shoe shoe);
 
         Shoe ReadShoeById(int id);
+        List<Shoe> ReadAllShoes();
 
         Shoe UpdateShoe(Shoe shoeToUpdate);
 
