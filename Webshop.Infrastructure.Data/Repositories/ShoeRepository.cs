@@ -34,13 +34,17 @@ namespace Webshop.Infrastructure.Data.Repositories
 
         public Shoe UpdateShoe(Shoe shoeToUpdate)
         {
-            throw new NotImplementedException();
+            _ctx.Attach(shoeToUpdate).State = EntityState.Modified;
+            _ctx.SaveChanges();
+            return shoeToUpdate;
         }
         
 
         public Shoe DeleteShoe(int id)
         {
-            throw new NotImplementedException();
+            var shoeRemoved = _ctx.Remove(new Shoe {id = id}).Entity;
+            _ctx.SaveChanges();
+            return shoeRemoved;
         }
 
         public int Count()
