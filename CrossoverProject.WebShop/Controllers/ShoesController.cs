@@ -23,7 +23,7 @@ namespace CrossoverProject.WebShop.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Shoe>> Get()
         {
-            return _shoeService.GetAllShoes().ToList();
+            return _shoeService.GetAllShoes();
         }
 
         // GET api/Shoes/5---read by id 
