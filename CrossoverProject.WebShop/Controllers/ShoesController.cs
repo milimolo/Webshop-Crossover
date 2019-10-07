@@ -19,24 +19,39 @@ namespace CrossoverProject.WebShop.Controllers
             _shoeService = shoeService;
         }
 
-        // GET api/values
+        // GET api/shoes
         [HttpGet]
         public ActionResult<IEnumerable<Shoe>> Get()
         {
             return _shoeService.GetAllShoes().ToList();
         }
 
-        // GET api/values/5
+        // GET api/Shoes/5---read by id 
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<Shoe> Get(int id)
         {
-            return "value";
+            if (id < 1) return BadRequest("Id must be greater then 0");
+            
+            var coreShoe = _shoeService.FindShoesById(id);
+            return new Shoe()
+            {
+                id = coreShoe .id,
+                price= coreShoe .price,
+                name= coreShoe .name ,
+                description= coreShoe .description,
+                size= coreShoe .size,
+                brand=coreShoe . brand ,
+                color=coreShoe .color ,
+                type=coreShoe .type ,
+                date =coreShoe .date
+            };
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
+           
         }
 
         // PUT api/values/5
