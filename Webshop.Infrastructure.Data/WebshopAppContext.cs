@@ -12,8 +12,7 @@ namespace Webshop.Infrastructure.Data
         {
 
         }
-
-        public DbSet<Customer> Customers { get; set; }
+        
 
         public DbSet<Shoe> Shoes { get; set; }
     }

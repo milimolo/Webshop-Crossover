@@ -49,21 +49,47 @@ namespace CrossoverProject.WebShop.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Shoe>  Post([FromBody] Shoe shoe)
         {
-           
+            
+                if (string.IsNullOrEmpty(shoe.name))
+                {
+                    return BadRequest("name is Required for Creating a shoe");
+                }
+
+                if (string.IsNullOrEmpty(shoe.price.ToString( )))
+                {
+                    return BadRequest("price is Required for Creating a shoe");
+                }
+
+                return _shoeService.CreateShoe(shoe);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<Shoe> Put(int id, [FromBody] Shoe shoe)
         {
+            
+                if (id < 1 || id != shoe.id)
+                {
+                    return BadRequest("Parameter Id and shoe id must be the same");
+                }
+
+                return Ok(_shoeService .UpdateShoe( shoe ));
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public  ActionResult<Shoe > Delete(int id)
+
         {
+            var shoe = _shoeService.DeleteShoe(id);
+                if (shoe == null)
+                {
+                    return StatusCode(404, "Did not find shoe with id " + id);
+                }
+
+                return NoContent();
+            }
         }
     }
-}
