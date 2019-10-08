@@ -15,6 +15,7 @@ namespace Webshop.Infrastructure.Data
             Shoe shoe1 = new Shoe()
             {
                 name = "Hot Heels",
+                price = 1000,
                 description = "Perfect shoe for running",
                 color = "Black",
                 brand = "Nike",
@@ -26,6 +27,7 @@ namespace Webshop.Infrastructure.Data
             Shoe shoe2 = new Shoe()
             {
                 name = "Off the Court",
+                price = 700,
                 description = "Leave the competition in the dust",
                 color = "White",
                 brand = "Adidas",
@@ -37,6 +39,7 @@ namespace Webshop.Infrastructure.Data
             Shoe shoe3 = new Shoe()
             {
                 name = "Nice Walkers",
+                price = 900,
                 description = "Shoe great for a long walk",
                 color = "Red",
                 brand = "Puma",
