@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WebShop.Core.DomainService.Filtering;
 using WebShop.Core.Entity;
 
 namespace WebShop.Core.ApplicationService
@@ -14,7 +15,8 @@ namespace WebShop.Core.ApplicationService
         //Create //POST
         Shoe CreateShoe (Shoe shoe);
         //Read //GET
-        IEnumerable<Shoe> GetAllShoes ();
+        FilteringList<Shoe> GetAllShoes ();
+        FilteringList<Shoe> GetFilteredShoes(Filter filter);
         Shoe FindShoesById(int id);
         int Count();
         //Update //PUT

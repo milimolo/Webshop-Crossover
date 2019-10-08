@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WebShop.Core.ApplicationService.Impl;
+using WebShop.Core.DomainService.Filtering;
 using WebShop.Core.Entity;
 
 namespace WebShop.Core.DomainService
@@ -12,7 +13,8 @@ namespace WebShop.Core.DomainService
         Shoe CreateShoe(Shoe shoe);
 
         Shoe ReadShoeById(int id);
-        IEnumerable<Shoe> ReadAllShoes();
+        FilteringList<Shoe> ReadAllShoes(Filter filter = null);
+
 
         Shoe UpdateShoe(Shoe shoeToUpdate);
 

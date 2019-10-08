@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Core.ApplicationService;
+using WebShop.Core.DomainService.Filtering;
 using WebShop.Core.Entity;
 
 namespace CrossoverProject.WebShop.Controllers
@@ -21,9 +22,17 @@ namespace CrossoverProject.WebShop.Controllers
 
         // GET api/shoes
         [HttpGet]
-        public ActionResult<IEnumerable<Shoe>> Get()
+        public ActionResult<FilteringList<Shoe>> Get([FromQuery] Filter filter)
         {
-            return _shoeService.GetAllShoes().ToList();
+            try
+            {
+                return _shoeService.GetFilteredShoes(filter);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         // GET api/Shoes/5---read by id 

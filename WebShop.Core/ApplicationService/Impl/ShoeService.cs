@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WebShop.Core.DomainService;
+using WebShop.Core.DomainService.Filtering;
 using WebShop.Core.Entity;
 
 namespace WebShop.Core.ApplicationService.Impl
@@ -29,7 +30,7 @@ namespace WebShop.Core.ApplicationService.Impl
             return _shoeRepository.CreateShoe(shoe);
         }
 
-        public IEnumerable<Shoe> GetAllShoes()
+        public FilteringList<Shoe> GetAllShoes()
         {
             return _shoeRepository.ReadAllShoes();
         }
@@ -53,6 +54,11 @@ namespace WebShop.Core.ApplicationService.Impl
         public Shoe DeleteShoe(int id)
         {
             return _shoeRepository.DeleteShoe(id); 
+        }
+
+        public FilteringList<Shoe> GetFilteredShoes(Filter filter)
+        {
+            return _shoeRepository.ReadAllShoes(filter);
         }
     }
 }
