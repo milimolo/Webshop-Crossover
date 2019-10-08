@@ -64,9 +64,7 @@ namespace CrossoverProject.WebShop
             services.AddCors(Options =>{
                 Options.AddPolicy("AllowSpecificOrigin",
                     builder => builder
-                    .WithOrigins("https://localhost:44311").AllowAnyHeader().AllowAnyMethod()
-                    .WithOrigins("http://shoewebapp.azurewebsites.net").AllowAnyHeader().AllowAnyMethod()
-                    .WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
+                    .AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
                     );
             });
         }
