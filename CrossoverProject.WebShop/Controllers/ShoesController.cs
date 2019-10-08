@@ -89,7 +89,7 @@ namespace CrossoverProject.WebShop.Controllers
                     return StatusCode(404, "Did not find shoe with id " + id);
                 }
 
-                return NoContent();
+                return Ok($"Shoe with ID: {id} has been deleted");
             }
         }
     }

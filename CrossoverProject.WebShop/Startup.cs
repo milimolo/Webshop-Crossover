@@ -59,14 +59,22 @@ namespace CrossoverProject.WebShop
                 //options.SerializerSettings.MaxDepth = 2;
             });
 
-            
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddCors(Options =>{
+                Options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder
+                    .WithOrigins("https://localhost:44311").AllowAnyHeader().AllowAnyMethod()
+                    .WithOrigins("http://shoewebapp.azurewebsites.net").AllowAnyHeader().AllowAnyMethod()
+                    );
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("AllowSpecificOrigin");
+
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
@@ -79,10 +87,11 @@ namespace CrossoverProject.WebShop
             }
             else
             {
+                app.UseHttpsRedirection();
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            
             app.UseMvc();
         }
     }
