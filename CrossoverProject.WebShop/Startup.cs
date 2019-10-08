@@ -66,6 +66,7 @@ namespace CrossoverProject.WebShop
                     builder => builder
                     .WithOrigins("https://localhost:44311").AllowAnyHeader().AllowAnyMethod()
                     .WithOrigins("http://shoewebapp.azurewebsites.net").AllowAnyHeader().AllowAnyMethod()
+                    .WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
                     );
             });
         }
@@ -87,11 +88,10 @@ namespace CrossoverProject.WebShop
             }
             else
             {
-                app.UseHttpsRedirection();
                 app.UseHsts();
             }
 
-            
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
