@@ -9,8 +9,8 @@ namespace Webshop.Infrastructure.Data
     {
         public static void Seed(WebshopAppContext wac)
         {
-            wac.Database.EnsureDeleted();
-            wac.Database.EnsureCreated();
+           // wac.Database.EnsureDeleted();
+            //wac.Database.EnsureCreated();
 
             Shoe shoe1 = new Shoe()
             {

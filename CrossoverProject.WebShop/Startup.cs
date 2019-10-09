@@ -35,9 +35,6 @@ namespace CrossoverProject.WebShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-
-            services.AddScoped<IShoeRepository, Webshop.Infrastructure.Data.Repositories.ShoeRepository>();
             if (Environment.IsDevelopment())
             {
                 //Laver en database ved navn ShoeApp.db, når den ikke er i development
@@ -63,23 +60,33 @@ namespace CrossoverProject.WebShop
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder
+                        //.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+                        .WithOrigins("http://localhost:8082").AllowAnyHeader().AllowAnyMethod()
+                        .WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
+                    );
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors("AllowSpecificOrigin");
 
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
-                context.Database.EnsureCreated();
-                DBInitializer.Seed(context);
             }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
+                context.Database.EnsureCreated();
+                DBInitializer.Seed(context);
             }
             else
             {
