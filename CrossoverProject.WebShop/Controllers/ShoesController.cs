@@ -26,7 +26,7 @@ namespace CrossoverProject.WebShop.Controllers
         {
             try
             {
-                return _shoeService.GetFilteredShoes(filter);
+                return Ok(_shoeService.GetFilteredShoes(filter));
             }
             catch (Exception e)
             {

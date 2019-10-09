@@ -32,38 +32,22 @@ namespace Webshop.Infrastructure.Data.Repositories
                 .FirstOrDefault(p=>p.id == id);
         }
 
-        public FilteringList<Shoe> ReadAllShoes(Filter filter = null)
+        public FilteringList<Shoe> ReadAllShoes(Filter filter)
         {
-            var query = _ctx.Set<Shoe>();
-
-            if (filter == null)
+            var filteredList = new FilteringList<Shoe>();
+            if (filter != null && filter.Items > 0 && filter.Page > 0)
             {
-                return new FilteringList<Shoe>()
-                {
-                    List = _ctx.Shoes.ToList(),
-                    Count = _ctx.Shoes.Count()
-                };
+                filteredList.List = _ctx.Shoes
+                    .OrderBy(s => s.id)
+                    .Skip((filter.Page - 1) * filter.Items)
+                    .Take(filter.Items)
+                    .ToList();
+                return filteredList;
             }
-
-                var page = query
-                .Select(e => e)
-                .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
-                .Take(filter.ItemsPrPage)
-                .GroupBy(e => new { Total = query.Count() })
-                .FirstOrDefault();
-
-                if (page != null)
-                {
-                    var total = page.Key.Total;
-                    var items = page.Select(e => e).ToList();
-                    return new FilteringList<Shoe>() { List = items, Count = total };
-                }
-                return new FilteringList<Shoe>()
-                {
-                    List = new List<Shoe>(),
-                    Count = 0
-                };
-            }
+            filteredList.List = _ctx.Shoes;
+            filteredList.Count = filteredList.List.Count();
+            return filteredList;
+        }
 
 
         public Shoe UpdateShoe(Shoe shoeToUpdate)

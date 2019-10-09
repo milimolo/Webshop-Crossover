@@ -40,8 +40,8 @@ namespace Webshop.Infrastructure.Data.Repositories
             var items = _ctx.Orders.Include(o => o.OrderList)
                 .ThenInclude(ol => ol.Shoe)
                 .Include(o => o.Customer)
-                .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
-                .Take(filter.ItemsPrPage)
+                .Skip((filter.Page - 1) * filter.Items)
+                .Take(filter.Items)
                 .ToList();
             return new FilteringList<Order>() { List = items, Count = Count() };
         }

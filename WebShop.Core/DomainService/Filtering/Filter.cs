@@ -6,7 +6,7 @@ namespace WebShop.Core.DomainService.Filtering
 {
     public class Filter
     {
-        public int CurrentPage { get; set; }
-        public int ItemsPrPage { get; set; }
+        public int Page { get; set; }
+        public int Items { get; set; }
     }
 }
