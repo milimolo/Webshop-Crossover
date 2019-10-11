@@ -65,6 +65,7 @@ namespace CrossoverProject.WebShop
                 options.AddPolicy("AllowSpecificOrigin",
                     builder => builder
                         //.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+                        .WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod()
                         .WithOrigins("http://localhost:8082").AllowAnyHeader().AllowAnyMethod()
                         .WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()
                     );
@@ -78,15 +79,16 @@ namespace CrossoverProject.WebShop
         {
             app.UseCors("AllowSpecificOrigin");
 
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-            }
+            
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
-                context.Database.EnsureCreated();
-                DBInitializer.Seed(context);
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    app.UseDeveloperExceptionPage();
+                    var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
+                    context.Database.EnsureCreated();
+                    DBInitializer.Seed(context);
+                }
             }
             else
             {
