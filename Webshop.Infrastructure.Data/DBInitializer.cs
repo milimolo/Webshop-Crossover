@@ -9,9 +9,6 @@ namespace Webshop.Infrastructure.Data
     {
         public static void Seed(WebshopAppContext wac)
         {
-           // wac.Database.EnsureDeleted();
-            //wac.Database.EnsureCreated();
-
             Shoe shoe1 = new Shoe()
             {
                 name = "Hot Heels",
@@ -20,6 +17,7 @@ namespace Webshop.Infrastructure.Data
                 color = "Black",
                 brand = "Nike",
                 size = 40,
+                picURL = "https://www.nakedcph.com/images/26811/medium.jpg",
                 type = "Herre",
                 date = DateTime.Today.AddDays(-5)
             };
@@ -32,6 +30,7 @@ namespace Webshop.Infrastructure.Data
                 color = "White",
                 brand = "Adidas",
                 size = 39,
+                picURL = "https://www.nakedcph.com/images/26811/medium.jpg",
                 type = "Herre",
                 date = DateTime.Today.AddDays(-10)
             };
@@ -44,6 +43,7 @@ namespace Webshop.Infrastructure.Data
                 color = "Red",
                 brand = "Puma",
                 size = 35,
+                picURL = "https://www.nakedcph.com/images/26811/medium.jpg",
                 type = "Kvinde",
                 date = DateTime.Today.AddDays(-1)
             };

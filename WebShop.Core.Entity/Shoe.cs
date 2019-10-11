@@ -14,6 +14,7 @@ namespace WebShop.Core.Entity
         public string brand { get; set; }
         public string color { get; set; }
         public string type { get; set; }
+        public string picURL { get; set; }
         public DateTime date { get; set; }
         public List<OrderLine> OrderLines { get; set; }
     }

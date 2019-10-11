@@ -47,7 +47,7 @@ namespace CrossoverProject.WebShop
                 services.AddDbContext<WebshopAppContext>(
                     opt => opt.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
             }
-            
+
 
             services.AddScoped<IShoeRepository, ShoeRepository>();
             services.AddScoped<IShoeService, ShoeService>();
@@ -79,13 +79,14 @@ namespace CrossoverProject.WebShop
         {
             app.UseCors("AllowSpecificOrigin");
 
-            
             if (env.IsDevelopment())
             {
+
+                app.UseDeveloperExceptionPage();
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                    app.UseDeveloperExceptionPage();
                     var context = scope.ServiceProvider.GetRequiredService<WebshopAppContext>();
+                    context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                     DBInitializer.Seed(context);
                 }

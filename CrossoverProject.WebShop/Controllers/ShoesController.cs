@@ -64,15 +64,14 @@ namespace CrossoverProject.WebShop.Controllers
             
                 if (string.IsNullOrEmpty(shoe.name))
                 {
-                    return BadRequest("name is Required for Creating a shoe");
+                    return BadRequest("Name is Required for Creating a shoe");
                 }
 
                 if (string.IsNullOrEmpty(shoe.price.ToString( )))
                 {
-                    return BadRequest("price is Required for Creating a shoe");
+                    return BadRequest("Price is Required for Creating a shoe");
                 }
-
-                return _shoeService.CreateShoe(shoe);
+            return _shoeService.CreateShoe(shoe);
         }
 
         // PUT api/values/5
